@@ -7,13 +7,16 @@ Bash script which does the following (based on current date):
  * calculates infection rate of country based upon number of deaths (deaths / mortality rate = infections)
  * exports data to HTML table
 
-Setup:<br>
+##Setup:<br>
 From your work directory, create directories:<br />
 ./dump<br />
 ./tables<br />
 ./tmp<br />
 
-Run:<br />
+##Run:<br />
 ./get_covid_data.sh
+
+Error messages are non-existent.  
+To find problems with curl data download (particularly if the data for the current day has not been posted), check the HTML generated in ./tmp/today.DATE(yyyy-mm-dd)
 
 Runs fine on ubuntu 18.04 LTS
