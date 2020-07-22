@@ -18,7 +18,7 @@ From your work directory, create directories:<br />
 
 <br />
 <br />
-Error messages are non-existent.  
+Error messages are non-existent.  <br />
 To find problems with curl data download (particularly if the data for the current day has not been posted), check the HTML generated in ./tmp/today.DATE(yyyy-mm-dd)
 
 Runs fine on ubuntu 18.04 LTS
