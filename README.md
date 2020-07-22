@@ -9,11 +9,11 @@ Bash script which does the following (based on current date):
 
 Setup:
 From your work directory, create directories:<br />
-./dump
-./tables
-./tmp
+./dump<br />
+./tables<br />
+./tmp<br />
 
-Run:
+Run:<br />
 ./get_covid_data.sh
 
 Runs fine on ubuntu 18.04 LTS
