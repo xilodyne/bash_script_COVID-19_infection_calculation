@@ -8,7 +8,7 @@ Bash script which does the following (based on current date):
  * exports data to HTML table
 
 Setup:
-From your work directory, create directories:
+From your work directory, create directories:\n
 ./dump
 ./tables
 ./tmp
