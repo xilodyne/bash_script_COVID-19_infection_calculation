@@ -7,7 +7,7 @@ Bash script which does the following (based on current date):
  * calculates infection rate of country based upon number of deaths (deaths / mortality rate = infections)
  * exports data to HTML table
 
-Setup:
+Setup:<br>
 From your work directory, create directories:<br />
 ./dump<br />
 ./tables<br />
