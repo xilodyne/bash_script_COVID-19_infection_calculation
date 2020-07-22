@@ -142,7 +142,6 @@ done
 ###################################
 function table_footer {
  echo "</table>" >> $TABLE_NAME
- echo "<p><a href="https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/">COVID-19 Mortality Data Source</a></p>" >> $TABLE_NAME
 
 }
 
