@@ -16,6 +16,8 @@ From your work directory, create directories:<br />
 ## Run:<br />
 ./get_covid_data.sh
 
+<br />
+<br />
 Error messages are non-existent.  
 To find problems with curl data download (particularly if the data for the current day has not been posted), check the HTML generated in ./tmp/today.DATE(yyyy-mm-dd)
 
