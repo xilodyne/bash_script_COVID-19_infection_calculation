@@ -19,18 +19,21 @@ TMP=./tmp
 TABLE=./tables
 
 #DATE_YMD=`date -d "1 days ago" +%F`
-#DATE_MDY=`date -d "1 days ago" +"%d/%m/%Y"`
+#DATE_DMY=`date -d "1 days ago" +"%d/%m/%Y"`
+DATE_DMY_20200701="01/07/2020"
+DATE_YMD_20200701="2020-07-01"
 DATE_YMD=`date +%F`
-DATE_MDY=`date +"%d/%m/%Y"`
+DATE_DMY=`date +"%d/%m/%Y"`
 TIMESTAMP="$DATE_YMD `date +%T`"
 
 
 COVID_FILE=covid_dump-$DATE_YMD
 COVID_FILE_NOTCLEANED=covid_dump_dirty-$DATE_YMD
-TODAYS_DATA=$TMP/today.$DATE_YMD
+COUNTRY_LIST=$TMP/countries.$DATE_YMD_20200701.$DATE_YMD
 SUMMED_DATA=$TMP/today_summed.$DATE_YMD
 FILETABLE=table.$DATE_YMD
 TABLE_NAME=$TABLE/$FILETABLE
+ZERO=0
 
 #https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide
 #https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-07-19.csv
@@ -52,11 +55,11 @@ echo "**********************************************************"
 echo
 
 echo "Date: yyyy-mm-dd: " $DATE_YMD
-echo "Date: dd/mm/yyyy: " $DATE_MDY
+echo "Date: dd/mm/yyyy: " $DATE_DMY
 echo "Dump Dirty File: $DUMP/$COVID_FILE_NOTCLEANED"
 echo "Dump File: $DUMP/$COVID_FILE"
 echo "URL: $URL"
-echo "Today's data: " $TODAYS_DATA
+echo "Country list: " $COUNTRY_LIST
 echo "Table File: $TABLE_NAME"
 echo
 echo
@@ -73,17 +76,17 @@ function get_data {
 # Extract unique country list
 ###################################
 function extract_unique {
-	echo "Extract $DATE_MDY data to $DUMP/$DATE_YMD"
+	echo "Extract $DATE_DMY data to $DUMP/$DATE_YMD"
 	cat $DUMP/$COVID_FILE_NOTCLEANED | sed "s/Bonaire,/Bonair;/g" | sed "s/\"//g" | sed "s/ /_/g" > $DUMP/$COVID_FILE
-	cat $DUMP/$COVID_FILE | grep $DATE_MDY > $TODAYS_DATA
-	echo "Line count of "`wc -l $TODAYS_DATA`
+	cat $DUMP/$COVID_FILE | grep $DATE_DMY_20200701 > $COUNTRY_LIST
+	echo "Line count of "`wc -l $COUNTRY_LIST`
 }
 
 ###################################
 # Sum country totals
 ###################################
 function sum_ctry_totals {
-UNIQUE_DATA=`cat $TODAYS_DATA`
+UNIQUE_DATA=`cat $COUNTRY_LIST`
 
 rm $TMP/*
 
@@ -99,7 +102,9 @@ do
  do
   #echo -ne "Current total: $DEATH_COUNT," 
   COUNTRY=`echo $CTRY_DEATHS | awk -F, '{print $7}'`
-  DEATHS=`echo $CTRY_DEATHS | awk -F, '{print $6}'`
+  DTH=`echo $CTRY_DEATHS | awk -F, '{print $6}'`
+  #ignore negative values
+  DEATHS=$(awk -v d1=$DTH -v z1=$ZERO 'BEGIN{print (d1<z1)?0:d1}')
   DEATH_COUNT=`echo $DEATHS $DEATH_COUNT | awk '{print $1+$2}'`
   #echo "adding: $DEATHS, New Total: $DEATH_COUNT"
  done
